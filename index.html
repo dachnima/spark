@@ -157,6 +157,16 @@
             text-align: center;
         }
 
+        /* صفحه خانه */
+        .home-content {
+            display: block;
+        }
+
+        /* سایر صفحات */
+        .page-content {
+            display: none;
+        }
+
         /* انیمیشن fade */
         @keyframes fadeIn {
             from {
@@ -217,34 +227,50 @@
     </header>
 
     <div class="content">
-        <h1>عنوان صفحه</h1>
-        <p>محتوا اینجا قرار می‌گیرد...</p>
-        <!-- محتوای نمونه برای اسکرول -->
-        <div style="height: 1000px;"></div>
+        <!-- محتوای صفحه خانه -->
+        <div class="home-content" id="homeContent">
+            <h1>عنوان صفحه</h1>
+            <p>محتوا اینجا قرار می‌گیرد...</p>
+        </div>
+
+        <!-- محتوای صفحه فروشگاه -->
+        <div class="page-content" id="shopContent">
+            <!-- محتوای فروشگاه اینجا قرار می گیرد -->
+        </div>
+
+        <!-- محتوای صفحه اعلان‌ها -->
+        <div class="page-content" id="notificationsContent">
+            <!-- محتوای اعلان‌ها اینجا قرار می گیرد -->
+        </div>
+
+        <!-- محتوای صفحه پروفایل -->
+        <div class="page-content" id="profileContent">
+            <!-- محتوای پروفایل اینجا قرار می گیرد -->
+        </div>
     </div>
 
     <!-- نوار پایین صفحه -->
     <div class="bottom-bar">
-        <div class="bottom-bar-item active" onclick="setActive(this)">
+        <div class="bottom-bar-item active" onclick="setActive(this, 'homeContent')">
             <i class="fas fa-home"></i>
             <span>خانه</span>
         </div>
-        <div class="bottom-bar-item" onclick="setActive(this)">
-            <i class="fas fa-search"></i>
-            <span>جستجو</span>
+        <div class="bottom-bar-item" onclick="setActive(this, 'shopContent')">
+            <i class="fas fa-basket-shopping"></i>
+            <span>فروشگاه</span>
         </div>
-        <div class="bottom-bar-item" onclick="setActive(this)">
+        <div class="bottom-bar-item" onclick="setActive(this, 'notificationsContent')">
             <i class="fas fa-bell"></i>
             <span>اعلان‌ها</span>
         </div>
-        <div class="bottom-bar-item" onclick="setActive(this)">
+        <div class="bottom-bar-item" onclick="setActive(this, 'profileContent')">
             <i class="fas fa-user"></i>
             <span>پروفایل</span>
         </div>
     </div>
 
     <script>
-        function setActive(element) {
+        function setActive(element, contentId) {
             // حذف کلاس active از همه آیتم‌ها
             document.querySelectorAll('.bottom-bar-item').forEach(item => {
                 item.classList.remove('active');
@@ -252,6 +278,16 @@
 
             // اضافه کردن کلاس active به آیتم کلیک شده
             element.classList.add('active');
+            
+            // مخفی کردن تمام محتواها
+            document.querySelectorAll('.page-content, .home-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // نمایش محتوای انتخاب شده
+            if(contentId) {
+                document.getElementById(contentId).style.display = 'block';
+            }
         }
 
         // تغییر حالت تاریک/روشن
