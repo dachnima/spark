@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>صفحه دارک مود با نوار پایین</title>
     <style>
         * {
@@ -17,10 +16,9 @@
             color: #e0e0e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            padding-top: 80px;
-            /* فضای برای هدر ثابت */
+            padding-top: 60px;
             padding-bottom: 65px;
-            /* فضای برای نوار پایین */
+            -webkit-text-size-adjust: 100%;
         }
 
         /* هدر ثابت در بالای صفحه */
@@ -29,19 +27,20 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 80px;
-            background: linear-gradient(to bottom, #121212, rgba(255, 0, 0, 0));
+            height: 60px;
+            background-color: #1e1e1e;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            border-bottom: 1px solid #333;
         }
 
         /* لوگو در هدر */
         .logo {
-            width: 100px;
-            height: 50px;
-            transition: transform 0.3s ease;
+            height: 40px;
+            width: auto;
+            max-width: 150px;
         }
 
         /* نوار پایین صفحه */
@@ -71,6 +70,7 @@
             -webkit-tap-highlight-color: transparent;
             user-select: none;
             position: relative;
+            font-size: 12px;
         }
 
         /* حالت فعال (پس از کلیک) */
@@ -96,7 +96,7 @@
         /* آیکون‌ها */
         .bottom-bar-item i {
             display: block;
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 2px;
             transition: transform 0.3s ease;
         }
@@ -107,7 +107,7 @@
 
         /* محتوای اصلی */
         .content {
-            padding: 20px;
+            padding: 15px;
             max-width: 100%;
             text-align: center;
         }
@@ -118,7 +118,6 @@
                 opacity: 0;
                 transform: translateX(-50%) translateY(10px);
             }
-
             to {
                 opacity: 1;
                 transform: translateX(-50%) translateY(0);
@@ -126,29 +125,31 @@
         }
 
         /* بهینه‌سازی برای موبایل */
-        @media (max-width: 600px) {
+        @media (max-width: 480px) {
             .header {
+                height: 55px;
+            }
+            
+            .logo {
+                height: 35px;
+            }
+            
+            .bottom-bar {
                 height: 60px;
             }
-
-            .logo {
-                width: 40px;
-                height: 40px;
+            
+            .bottom-bar-item {
+                font-size: 11px;
+                padding: 6px;
             }
-
+            
+            .bottom-bar-item i {
+                font-size: 16px;
+            }
+            
             body {
-                padding-top: 60px;
-                padding-bottom: 65px;
-            }
-
-            .bottom-bar {
-                height: 65px;
-                border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
-            }
-
-            .bottom-bar-item.active::after {
-                bottom: -8px;
+                padding-top: 55px;
+                padding-bottom: 60px;
             }
         }
     </style>
@@ -163,7 +164,8 @@
     </header>
 
     <div class="content">
-        <!-- محتوای اصلی صفحه -->
+        <h1>عنوان صفحه</h1>
+        <p>محتوا اینجا قرار می‌گیرد...</p>
         <!-- محتوای نمونه برای اسکرول -->
         <div style="height: 1000px;"></div>
     </div>
@@ -200,5 +202,4 @@
         }
     </script>
 </body>
-
 </html>
