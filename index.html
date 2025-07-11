@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>صفحه دارک مود با نوار پایین</title>
+    <title>صفحه با قابلیت تغییر حالت تاریک/روشن</title>
     <style>
         * {
             margin: 0;
@@ -19,6 +19,13 @@
             padding-top: 60px;
             padding-bottom: 65px;
             -webkit-text-size-adjust: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* حالت روشن */
+        body.light-mode {
+            background-color: #f5f5f5;
+            color: #333;
         }
 
         /* هدر ثابت در بالای صفحه */
@@ -33,6 +40,30 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        /* هدر در حالت روشن */
+        body.light-mode .header {
+            background-color: #f5f5f5;
+        }
+
+        /* دکمه تغییر حالت */
+        .theme-toggle {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        body.light-mode .theme-toggle {
+            color: #333;
         }
 
         /* لوگو در هدر */
@@ -57,11 +88,18 @@
             z-index: 1000;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* نوار پایین در حالت روشن */
+        body.light-mode .bottom-bar {
+            background-color: #ffffff;
+            border-top: 1px solid #ddd;
         }
 
         /* آیتم‌های نوار پایین */
         .bottom-bar-item {
-            color: #aaa;
+            color: #858585;
             text-align: center;
             flex: 1;
             padding: 8px;
@@ -74,6 +112,11 @@
         /* حالت فعال (پس از کلیک) */
         .bottom-bar-item.active {
             color: #fff;
+        }
+
+        /* حالت فعال در حالت روشن */
+        body.light-mode .bottom-bar-item.active {
+            color: #333;
         }
 
         /* افکت فعال شدن */
@@ -89,6 +132,11 @@
             border-radius: 50%;
             opacity: 0;
             animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* افکت فعال در حالت روشن */
+        body.light-mode .bottom-bar-item.active::after {
+            background-color: #333;
         }
 
         /* آیکون‌ها */
@@ -149,6 +197,11 @@
                 padding-top: 55px;
                 padding-bottom: 60px;
             }
+            
+            .theme-toggle {
+                left: 15px;
+                font-size: 18px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -157,6 +210,9 @@
 <body>
     <!-- هدر ثابت در بالای صفحه -->
     <header class="header">
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-sun"></i>
+        </button>
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC1nKfkC7nX7r_uZD1Jzx0_ks6hd0ShK5ZFw&s"
             alt="لوگو" class="logo">
     </header>
@@ -197,6 +253,35 @@
 
             // اضافه کردن کلاس active به آیتم کلیک شده
             element.classList.add('active');
+        }
+
+        // تغییر حالت تاریک/روشن
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            // تغییر آیکون
+            const icon = themeToggle.querySelector('i');
+            if (body.classList.contains('light-mode')) {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            } else {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+            
+            // ذخیره حالت در localStorage
+            localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+        
+        // بررسی حالت ذخیره شده
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light-mode');
+            const icon = themeToggle.querySelector('i');
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
         }
     </script>
 </body>
