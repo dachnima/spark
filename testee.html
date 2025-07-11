@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه دارک مود با نوار پایین گرد</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+        
+        /* نوار پایین صفحه با گوشه‌های گرد */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: #1e1e1e;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #333;
+            z-index: 1000;
+            border-top-left-radius: 15px; /* گرد کردن گوشه بالا چپ */
+            border-top-right-radius: 15px; /* گرد کردن گوشه بالا راست */
+        }
+        
+        /* آیتم‌های نوار پایین */
+        .bottom-bar-item {
+            color: #aaa;
+            text-align: center;
+            flex: 1;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .bottom-bar-item:hover {
+            color: #fff;
+            background-color: #333;
+        }
+        
+        /* آیکون‌ها */
+        .bottom-bar-item i {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+        
+        /* محتوای اصلی */
+        .content {
+            padding: 20px;
+            max-width: 100%;
+        }
+        
+        /* بهینه‌سازی برای موبایل */
+        @media (max-width: 600px) {
+            .bottom-bar {
+                height: 65px;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+            }
+            
+            body {
+                padding-bottom: 65px;
+            }
+        }
+    </style>
+    <!-- لینک فونت آیکون -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="content">
+        <!-- محتوای اصلی صفحه اینجا قرار می‌گیرد -->
+    </div>
+    
+    <!-- نوار پایین صفحه با گوشه‌های گرد -->
+    <div class="bottom-bar">
+        <div class="bottom-bar-item">
+            <i class="fas fa-home"></i>
+            <span>خانه</span>
+        </div>
+        <div class="bottom-bar-item">
+            <i class="fas fa-search"></i>
+            <span>جستجو</span>
+        </div>
+        <div class="bottom-bar-item">
+            <i class="fas fa-bell"></i>
+            <span>اعلان‌ها</span>
+        </div>
+        <div class="bottom-bar-item">
+            <i class="fas fa-user"></i>
+            <span>پروفایل</span>
+        </div>
+    </div>
+</body>
+</html>
