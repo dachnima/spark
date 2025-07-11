@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,16 +11,18 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             background-color: #121212;
             color: #e0e0e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            padding-top: 80px; /* فضای برای هدر ثابت */
-            padding-bottom: 65px; /* فضای برای نوار پایین */
+            padding-top: 80px;
+            /* فضای برای هدر ثابت */
+            padding-bottom: 65px;
+            /* فضای برای نوار پایین */
         }
-        
+
         /* هدر ثابت در بالای صفحه */
         .header {
             position: fixed;
@@ -27,19 +30,20 @@
             left: 0;
             right: 0;
             height: 80px;
+            background: linear-gradient(to bottom, #121212, rgba(255, 0, 0, 0));
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
-        
+
         /* لوگو در هدر */
         .logo {
-            width: 50px;
+            width: 100px;
             height: 50px;
             transition: transform 0.3s ease;
         }
-        
+
         /* نوار پایین صفحه */
         .bottom-bar {
             position: fixed;
@@ -56,7 +60,7 @@
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
         }
-        
+
         /* آیتم‌های نوار پایین */
         .bottom-bar-item {
             color: #aaa;
@@ -68,12 +72,12 @@
             user-select: none;
             position: relative;
         }
-        
+
         /* حالت فعال (پس از کلیک) */
         .bottom-bar-item.active {
             color: #fff;
         }
-        
+
         /* افکت فعال شدن */
         .bottom-bar-item.active::after {
             content: '';
@@ -88,7 +92,7 @@
             opacity: 0;
             animation: fadeIn 0.5s ease forwards;
         }
-        
+
         /* آیکون‌ها */
         .bottom-bar-item i {
             display: block;
@@ -96,52 +100,53 @@
             margin-bottom: 2px;
             transition: transform 0.3s ease;
         }
-        
+
         .bottom-bar-item.active i {
             transform: translateY(-3px);
         }
-        
+
         /* محتوای اصلی */
         .content {
             padding: 20px;
             max-width: 100%;
             text-align: center;
         }
-        
+
         /* انیمیشن fade */
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateX(-50%) translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(-50%) translateY(0);
             }
         }
-        
+
         /* بهینه‌سازی برای موبایل */
         @media (max-width: 600px) {
             .header {
                 height: 60px;
             }
-            
+
             .logo {
                 width: 40px;
                 height: 40px;
             }
-            
+
             body {
                 padding-top: 60px;
                 padding-bottom: 65px;
             }
-            
+
             .bottom-bar {
                 height: 65px;
                 border-top-left-radius: 20px;
                 border-top-right-radius: 20px;
             }
-            
+
             .bottom-bar-item.active::after {
                 bottom: -8px;
             }
@@ -149,18 +154,21 @@
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     <!-- هدر ثابت در بالای صفحه -->
     <header class="header">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC1nKfkC7nX7r_uZD1Jzx0_ks6hd0ShK5ZFw&s" alt="لوگو" class="logo">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC1nKfkC7nX7r_uZD1Jzx0_ks6hd0ShK5ZFw&s"
+            alt="لوگو" class="logo">
     </header>
-    
+
     <div class="content">
+        <h1>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>
         <!-- محتوای اصلی صفحه -->
         <!-- محتوای نمونه برای اسکرول -->
         <div style="height: 1000px;"></div>
     </div>
-    
+
     <!-- نوار پایین صفحه -->
     <div class="bottom-bar">
         <div class="bottom-bar-item active" onclick="setActive(this)">
@@ -187,10 +195,11 @@
             document.querySelectorAll('.bottom-bar-item').forEach(item => {
                 item.classList.remove('active');
             });
-            
+
             // اضافه کردن کلاس active به آیتم کلیک شده
             element.classList.add('active');
         }
     </script>
 </body>
+
 </html>
