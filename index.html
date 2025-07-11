@@ -16,7 +16,19 @@
             color: #e0e0e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            padding-bottom: 60px;
+            padding-bottom: 65px;
+        }
+        
+        /* لوگو در بالای صفحه */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
         }
         
         /* نوار پایین صفحه */
@@ -84,6 +96,7 @@
         .content {
             padding: 20px;
             max-width: 100%;
+            text-align: center;
         }
         
         /* انیمیشن fade */
@@ -100,6 +113,11 @@
         
         /* بهینه‌سازی برای موبایل */
         @media (max-width: 600px) {
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+            
             .bottom-bar {
                 height: 65px;
                 border-top-left-radius: 20px;
@@ -118,6 +136,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- لوگو در بالای صفحه -->
+    <div class="logo-container">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC1nKfkC7nX7r_uZD1Jzx0_ks6hd0ShK5ZFw&s" alt="لوگو" class="logo">
+    </div>
+    
     <div class="content">
         <!-- محتوای اصلی صفحه -->
     </div>
@@ -153,7 +176,5 @@
             element.classList.add('active');
         }
     </script>
-</body>
-</html>
 </body>
 </html>
