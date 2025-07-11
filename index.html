@@ -16,20 +16,28 @@
             color: #e0e0e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            padding-bottom: 65px;
+            padding-top: 80px; /* فضای برای هدر ثابت */
+            padding-bottom: 65px; /* فضای برای نوار پایین */
         }
         
-        /* لوگو در بالای صفحه */
-        .logo-container {
+        /* هدر ثابت در بالای صفحه */
+        .header {
             position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
             display: flex;
             justify-content: center;
-            padding: 20px 0;
+            align-items: center;
+            z-index: 1000;
         }
         
+        /* لوگو در هدر */
         .logo {
-            width: 120px;
-            height: 120px;
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
         }
         
         /* نوار پایین صفحه */
@@ -114,19 +122,24 @@
         
         /* بهینه‌سازی برای موبایل */
         @media (max-width: 600px) {
+            .header {
+                height: 60px;
+            }
+            
             .logo {
-                width: 100px;
-                height: 100px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            body {
+                padding-top: 60px;
+                padding-bottom: 65px;
             }
             
             .bottom-bar {
                 height: 65px;
                 border-top-left-radius: 20px;
                 border-top-right-radius: 20px;
-            }
-            
-            body {
-                padding-bottom: 65px;
             }
             
             .bottom-bar-item.active::after {
@@ -137,13 +150,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- لوگو در بالای صفحه -->
-    <div class="logo-container">
+    <!-- هدر ثابت در بالای صفحه -->
+    <header class="header">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC1nKfkC7nX7r_uZD1Jzx0_ks6hd0ShK5ZFw&s" alt="لوگو" class="logo">
-    </div>
+    </header>
     
     <div class="content">
         <!-- محتوای اصلی صفحه -->
+        <!-- محتوای نمونه برای اسکرول -->
+        <div style="height: 1000px;"></div>
     </div>
     
     <!-- نوار پایین صفحه -->
