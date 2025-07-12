@@ -193,7 +193,7 @@
         .latest-title {
             text-align: right;
             margin: 20px 15px 10px;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             color: #ff9800;
         }
@@ -222,7 +222,7 @@
             overflow: hidden;
             transition: transform 0.3s ease;
             border: 1px solid #333;
-            min-width: 120px;
+            width: 200px;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
@@ -297,7 +297,7 @@
             background-color: #ff9800;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-family: inherit;
@@ -671,64 +671,67 @@ body.light-mode .notification-box {
         });
 
         // تابع برای بارگذاری و نمایش اعلان‌ها از فایل متنی
-        async function loadNotifications() {
-            const container = document.getElementById('notificationsContainer');
-            container.innerHTML = '<p class="no-notifications">در حال بارگذاری اعلان‌ها...</p>';
+// تابع برای بارگذاری و نمایش اعلان‌ها از فایل متنی
+async function loadNotifications() {
+    const container = document.getElementById('notificationsContainer');
+    container.innerHTML = '<p class="no-notifications">در حال بارگذاری اعلان‌ها...</p>';
+    
+    try {
+        // دریافت فایل متنی از سرور
+        const response = await fetch('notifications.txt');
+        
+        if (!response.ok) {
+            throw new Error('خطا در دریافت اعلان‌ها');
+        }
+        
+        const text = await response.text();
+        // تقسیم متن به بخش‌هایی که بین دو خط خالی قرار دارند
+        const sections = text.split(/\n\s*\n/).filter(section => section.trim() !== '');
+        
+        container.innerHTML = '';
+        
+        if (sections.length === 0) {
+            container.innerHTML = '<p class="no-notifications">هیچ اعلان جدیدی وجود ندارد</p>';
+            return;
+        }
+        
+        sections.forEach((section, index) => {
+            // حذف خطوط خالی از هر بخش
+            const lines = section.split('\n').filter(line => line.trim() !== '');
+            if (lines.length === 0) return;
             
-            try {
-                // دریافت فایل متنی از سرور
-                const response = await fetch('Notification.txt');
-                
-                if (!response.ok) {
-                    throw new Error('خطا در دریافت اعلان‌ها');
-                }
-                
-                const text = await response.text();
-                const sections = text.split('\n\n').filter(section => section.trim() !== '');
-                
-                container.innerHTML = '';
-                
-                if (sections.length === 0) {
-                    container.innerHTML = '<p class="no-notifications">هیچ اعلان جدیدی وجود ندارد</p>';
-                    return;
-                }
-                
-                sections.forEach((section, index) => {
-                    const lines = section.split('\n').filter(line => line.trim() !== '');
-                    if (lines.length === 0) return;
-                    
-                    const box = document.createElement('div');
-                    box.className = 'notification-box fade-in';
-                    box.style.animationDelay = `${index * 0.1}s`;
-                    
-                    // بررسی خط عنوان (شروع با #)
-                    const isTitle = lines[0].startsWith('#');
-                    const title = isTitle ? lines[0].substring(1).trim() : null;
-                    const contentLines = isTitle ? lines.slice(1) : lines;
-                    
-                    if (title) {
-                        box.innerHTML = `
-                            <div class="notification-title">${title}</div>
-                            <div class="notification-text">${contentLines.join('<br>')}</div>
-                        `;
-                    } else {
-                        box.innerHTML = `
-                            <div class="notification-text">${lines.join('<br>')}</div>
-                        `;
-                    }
-                    
-                    container.appendChild(box);
-                });
-                
-            } catch (error) {
-                console.error('Error:', error);
-                container.innerHTML = `
-                    <p class="no-notifications" style="color: #ff5252;">
-                        خطا در بارگذاری اعلان‌ها
-                    </p>
+            const box = document.createElement('div');
+            box.className = 'notification-box fade-in';
+            box.style.animationDelay = `${index * 0.1}s`;
+            
+            // بررسی خط عنوان (شروع با #)
+            const isTitle = lines[0].startsWith('#');
+            const title = isTitle ? lines[0].substring(1).trim() : null;
+            const contentLines = isTitle ? lines.slice(1) : lines;
+            
+            if (title) {
+                box.innerHTML = `
+                    <div class="notification-title">${title}</div>
+                    <div class="notification-text">${contentLines.join('<br>')}</div>
+                `;
+            } else {
+                box.innerHTML = `
+                    <div class="notification-text">${lines.join('<br>')}</div>
                 `;
             }
-        }
+            
+            container.appendChild(box);
+        });
+        
+    } catch (error) {
+        console.error('Error:', error);
+        container.innerHTML = `
+            <p class="no-notifications" style="color: #ff5252;">
+                خطا در بارگذاری اعلان‌ها
+            </p>
+        `;
+    }
+}
     </script>
 </body>
 </html>
