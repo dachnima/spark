@@ -238,23 +238,26 @@
         }
 
         /* تصویر محصول */
-        .product-image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100px; /* کاهش ارتفاع تصویر */
-            padding: 5px;
-            background-color: #2a2a2a;
-        }
+.product-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    padding: 5px;
+    background-color: #2a2a2a;
+    overflow: hidden; /* اضافه شده برای جلوگیری از بیرون زدن تصویر */
+}
 
-        body.light-mode .product-image-container {
-            background-color: #f9f9f9;
-        }
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* حفظ نسبت ابعاد بدون کشیدگی */
+    object-position: center; /* مطمئن شویم تصویر در مرکز قرار می‌گیرد */
+}
 
-        .product-image {
-            max-width: 100%;
-            max-height: 100%;
-        }
+body.light-mode .product-image-container {
+    background-color: #f9f9f9;
+}
 
         /* اطلاعات محصول */
         .product-info {
@@ -272,7 +275,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             line-height: 1.4;
         }
