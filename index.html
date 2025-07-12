@@ -167,6 +167,26 @@
             display: none;
         }
 
+        /* استایل‌های بخش فروشگاه */
+        .shop-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .shop-image {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            margin: 0 auto;
+            display: block;
+        }
+
+        /* حالت روشن */
+        body.light-mode .shop-image {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
         /* انیمیشن fade */
         @keyframes fadeIn {
             from {
@@ -211,6 +231,11 @@
                 left: 15px;
                 font-size: 25px;
             }
+            
+            .shop-image {
+                max-width: 100%;
+                border-radius: 8px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -235,7 +260,12 @@
 
         <!-- محتوای صفحه فروشگاه -->
         <div class="page-content" id="shopContent">
-            <!-- محتوای فروشگاه اینجا قرار می گیرد -->
+            <div class="shop-header">
+                <img src="https://static.cdn.asset.cinematicket.org/media/cache/c3/a2/c3a27e55aa8e151fed8e85cd184bc206.webp" alt="فروشگاه" class="shop-image">
+            </div>
+            <div class="shop-items">
+                <!-- آیتم‌های فروشگاه اینجا قرار می‌گیرند -->
+            </div>
         </div>
 
         <!-- محتوای صفحه اعلان‌ها -->
@@ -270,6 +300,11 @@
     </div>
 
     <script>
+        // متغیرهای جدید برای مدیریت cooldown
+        let isThemeChanging = false;
+        let lastThemeChangeTime = 0;
+        const COOLDOWN_DURATION = 1000; // 1 ثانیه به میلی‌ثانیه
+
         function setActive(element, contentId) {
             // حذف کلاس active از همه آیتم‌ها
             document.querySelectorAll('.bottom-bar-item').forEach(item => {
@@ -290,11 +325,22 @@
             }
         }
 
-        // تغییر حالت تاریک/روشن
+        // تغییر حالت تاریک/روشن با cooldown
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         
         themeToggle.addEventListener('click', () => {
+            const now = Date.now();
+            
+            // بررسی cooldown
+            if (isThemeChanging || (now - lastThemeChangeTime) < COOLDOWN_DURATION) {
+                return; // اگر در حال تغییر است یا cooldown فعال است، کاری نکن
+            }
+            
+            isThemeChanging = true;
+            lastThemeChangeTime = now;
+            
+            // تغییر حالت
             body.classList.toggle('light-mode');
             
             // تغییر آیکون
@@ -309,6 +355,11 @@
             
             // ذخیره حالت در localStorage
             localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+            
+            // پایان cooldown بعد از 1 ثانیه
+            setTimeout(() => {
+                isThemeChanging = false;
+            }, COOLDOWN_DURATION);
         });
         
         // بررسی حالت ذخیره شده
