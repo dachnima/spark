@@ -158,7 +158,6 @@
         .content {
             padding: 15px;
             max-width: 100%;
-            text-align: center;
         }
 
         /* صفحه خانه */
@@ -190,14 +189,49 @@
             border: 1px solid #ddd;
         }
 
-        /* استایل‌های جدید برای بخش محصولات */
-        .products-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
+        /* عنوان جدیدترین‌ها */
+        .latest-title {
+            text-align: right;
+            margin: 20px 15px 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff9800;
+        }
+
+        body.light-mode .latest-title {
+            color: #ff5722;
+        }
+
+        /* استایل‌های جدید برای بخش محصولات (ردیفی) */
+        .products-row {
+            display: flex;
+            overflow-x: auto;
             padding: 15px;
-            max-width: 1200px;
-            margin: 0 auto;
+            gap: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: #ff9800 #1e1e1e;
+        }
+
+        body.light-mode .products-row {
+            scrollbar-color: #ff9800 #f5f5f5;
+        }
+
+        .products-row::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .products-row::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 10px;
+        }
+
+        body.light-mode .products-row::-webkit-scrollbar-track {
+            background: #f5f5f5;
+        }
+
+        .products-row::-webkit-scrollbar-thumb {
+            background-color: #ff9800;
+            border-radius: 10px;
         }
 
         .product-card {
@@ -206,6 +240,8 @@
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #333;
+            min-width: 150px;
+            flex-shrink: 0;
         }
 
         body.light-mode .product-card {
@@ -224,13 +260,14 @@
         }
 
         .product-image {
-            width: 100%;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             object-fit: cover;
         }
 
         .product-info {
             padding: 10px;
+            width: 150px;
         }
 
         .product-title {
@@ -323,14 +360,18 @@
                 border-radius: 8px;
             }
 
-            .products-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-                padding: 10px;
+            .product-image {
+                width: 120px;
+                height: 120px;
             }
             
-            .product-image {
-                height: 100px;
+            .product-info {
+                width: 120px;
+            }
+            
+            .latest-title {
+                font-size: 16px;
+                margin: 15px 10px 8px;
             }
         }
     </style>
@@ -350,8 +391,8 @@
     <div class="content">
         <!-- محتوای صفحه خانه -->
         <div class="home-content" id="homeContent">
-            <h1>به فروشگاه ما خوش آمدید</h1>
-            <p>جدیدترین محصولات با بهترین قیمت‌ها</p>
+            <h1 style="text-align: center;">به فروشگاه ما خوش آمدید</h1>
+            <p style="text-align: center;">جدیدترین محصولات با بهترین قیمت‌ها</p>
         </div>
 
         <!-- محتوای صفحه فروشگاه -->
@@ -359,12 +400,15 @@
             <div class="shop-header">
                 <img src="https://static.cdn.asset.cinematicket.org/media/cache/c3/a2/c3a27e55aa8e151fed8e85cd184bc206.webp" alt="فروشگاه" class="shop-image">
             </div>
-            <div class="products-container">
+            
+            <h2 class="latest-title">جدیدترین‌ها</h2>
+            
+            <div class="products-row">
                 <!-- محصول 1 -->
                 <div class="product-card">
                     <img src="https://dkstatics-public.digikala.com/digikala-products/114633234.jpg" alt="محصول 1" class="product-image">
                     <div class="product-info">
-                        <h3 class="product-title">لباس مخصوص تیم کارون</h3>
+                        <h3 class="product-title">گوشی موبایل سامسونگ مدل Galaxy A23 دو سیم کارت ظرفیت 128 گیگابایت</h3>
                         <div class="product-price">۸,۹۹۰,۰۰۰ تومان</div>
                         <button class="buy-btn">افزودن به سبد خرید</button>
                     </div>
@@ -372,7 +416,7 @@
                 
                 <!-- محصول 2 -->
                 <div class="product-card">
-                    <img src="https://dkstatics-public.digikala.com/digikala-products/117846704.jpg" alt="محصول 2" class="product-image">
+                    <img src="https://dkstatics-public.digikala.com/digikala-products/114633234.jpg" alt="محصول 2" class="product-image">
                     <div class="product-info">
                         <h3 class="product-title">هدفون بی سیم اپل مدل AirPods Pro نسل دوم</h3>
                         <div class="product-price">۱۲,۵۰۰,۰۰۰ تومان</div>
@@ -382,7 +426,7 @@
                 
                 <!-- محصول 3 -->
                 <div class="product-card">
-                    <img src="https://dkstatics-public.digikala.com/digikala-products/ef9f8e1c8d6b3c6c2d8e6c1e8a3f8b3d5b8c1d8e6.jpg" alt="محصول 3" class="product-image">
+                    <img src="https://dkstatics-public.digikala.com/digikala-products/114633234.jpg" alt="محصول 3" class="product-image">
                     <div class="product-info">
                         <h3 class="product-title">لپ تاپ لنوو مدل IdeaPad 3 15IAU7</h3>
                         <div class="product-price">۲۵,۰۰۰,۰۰۰ تومان</div>
@@ -392,7 +436,7 @@
                 
                 <!-- محصول 4 -->
                 <div class="product-card">
-                    <img src="https://dkstatics-public.digikala.com/digikala-products/9f8e1c8d6b3c6c2d8e6c1e8a3f8b3d5b8c1d8e6.jpg" alt="محصول 4" class="product-image">
+                    <img src="https://dkstatics-public.digikala.com/digikala-products/114633234.jpg" alt="محصول 4" class="product-image">
                     <div class="product-info">
                         <h3 class="product-title">ساعت هوشمند اپل مدل Series 8 آلومینیومی</h3>
                         <div class="product-price">۱۸,۷۵۰,۰۰۰ تومان</div>
@@ -402,7 +446,7 @@
 
                 <!-- محصول 5 -->
                 <div class="product-card">
-                    <img src="https://dkstatics-public.digikala.com/digikala-products/1a2b3c4d5e6f7g8h9i0j.jpg" alt="محصول 5" class="product-image">
+                    <img src="https://dkstatics-public.digikala.com/digikala-products/114633234.jpg" alt="محصول 5" class="product-image">
                     <div class="product-info">
                         <h3 class="product-title">تبلت سامسونگ مدل Galaxy Tab S8 اولترا</h3>
                         <div class="product-price">۳۲,۰۰۰,۰۰۰ تومان</div>
@@ -412,7 +456,7 @@
 
                 <!-- محصول 6 -->
                 <div class="product-card">
-                    <img src="https://dkstatics-public.digikala.com/digikala-products/1b2c3d4e5f6g7h8i9j0k.jpg" alt="محصول 6" class="product-image">
+                    <img src="https://dkstatics-public.digikala.com/digikala-products/114633234.jpg" alt="محصول 6" class="product-image">
                     <div class="product-info">
                         <h3 class="product-title">دوربین عکاسی کانن مدل EOS R5</h3>
                         <div class="product-price">۱۲۵,۰۰۰,۰۰۰ تومان</div>
@@ -424,14 +468,14 @@
 
         <!-- محتوای صفحه اعلان‌ها -->
         <div class="page-content" id="notificationsContent">
-            <h2>اعلان‌ها</h2>
-            <p>هیچ اعلان جدیدی وجود ندارد</p>
+            <h2 style="text-align: center;">اعلان‌ها</h2>
+            <p style="text-align: center;">هیچ اعلان جدیدی وجود ندارد</p>
         </div>
 
         <!-- محتوای صفحه پروفایل -->
         <div class="page-content" id="profileContent">
-            <h2>پروفایل کاربری</h2>
-            <p>برای مشاهده پروفایل خود وارد شوید</p>
+            <h2 style="text-align: center;">پروفایل کاربری</h2>
+            <p style="text-align: center;">برای مشاهده پروفایل خود وارد شوید</p>
         </div>
     </div>
 
