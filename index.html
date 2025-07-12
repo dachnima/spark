@@ -208,11 +208,11 @@
             overflow-x: auto;
             padding: 10px 15px;
             gap: 12px;
-            scrollbar-width: none; /* حذف اسکرول بار */
+            scrollbar-width: none;
         }
 
         .products-row::-webkit-scrollbar {
-            display: none; /* حذف اسکرول بار برای مرورگرهای وبکیت */
+            display: none;
         }
 
         /* استایل کارت محصولات */
@@ -222,7 +222,7 @@
             overflow: hidden;
             transition: transform 0.3s ease;
             border: 1px solid #333;
-            min-width: 120px; /* کاهش عرض کارت */
+            min-width: 120px;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
@@ -238,26 +238,26 @@
         }
 
         /* تصویر محصول */
-.product-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    padding: 5px;
-    background-color: #2a2a2a;
-    overflow: hidden; /* اضافه شده برای جلوگیری از بیرون زدن تصویر */
-}
+        .product-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            padding: 5px;
+            background-color: #2a2a2a;
+            overflow: hidden;
+        }
 
-.product-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* حفظ نسبت ابعاد بدون کشیدگی */
-    object-position: center; /* مطمئن شویم تصویر در مرکز قرار می‌گیرد */
-}
+        body.light-mode .product-image-container {
+            background-color: #f9f9f9;
+        }
 
-body.light-mode .product-image-container {
-    background-color: #f9f9f9;
-}
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
 
         /* اطلاعات محصول */
         .product-info {
@@ -268,10 +268,10 @@ body.light-mode .product-image-container {
         }
 
         .product-title {
-            font-size: 12px; /* کاهش سایز فونت */
+            font-size: 12px;
             margin-bottom: 5px;
             color: #e0e0e0;
-            height: 36px; /* کاهش ارتفاع عنوان */
+            height: 36px;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
@@ -287,7 +287,7 @@ body.light-mode .product-image-container {
             font-weight: bold;
             color: #ff9800;
             margin-bottom: 8px;
-            font-size: 14px; /* کاهش سایز فونت قیمت */
+            font-size: 14px;
         }
 
         .buy-btn {
@@ -301,12 +301,50 @@ body.light-mode .product-image-container {
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-family: inherit;
-            font-size: 12px; /* کاهش سایز فونت دکمه */
+            font-size: 12px;
             margin-top: auto;
         }
 
         .buy-btn:hover {
             background-color: #f57c00;
+        }
+
+        /* استایل باکس اعلان‌ها */
+        .notification-box {
+            background-color: #1e1e1e;
+            border-right: 4px solid #ff9800;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .notification-box {
+            background-color: #fff;
+            border-right: 4px solid #ff5722;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .notification-box:hover {
+            transform: translateX(-5px);
+        }
+
+        .notification-text {
+            color: #e0e0e0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        body.light-mode .notification-text {
+            color: #333;
+        }
+
+        .no-notifications {
+            text-align: center;
+            color: #888;
+            margin-top: 30px;
+            font-size: 16px;
         }
 
         /* انیمیشن fade */
@@ -389,6 +427,15 @@ body.light-mode .product-image-container {
             .buy-btn {
                 padding: 5px;
                 font-size: 11px;
+            }
+            
+            .notification-box {
+                padding: 10px 12px;
+                margin-bottom: 12px;
+            }
+            
+            .notification-text {
+                font-size: 13px;
             }
         }
     </style>
@@ -497,8 +544,10 @@ body.light-mode .product-image-container {
 
         <!-- محتوای صفحه اعلان‌ها -->
         <div class="page-content" id="notificationsContent">
-            <h2 style="text-align: center;">اعلان‌ها</h2>
-            <p style="text-align: center;">هیچ اعلان جدیدی وجود ندارد</p>
+            <h2 style="text-align: center; margin-bottom: 20px;">اعلان‌ها</h2>
+            <div id="notificationsContainer" style="padding: 0 15px;">
+                <p class="no-notifications">در حال بارگذاری اعلان‌ها...</p>
+            </div>
         </div>
 
         <!-- محتوای صفحه پروفایل -->
@@ -518,7 +567,7 @@ body.light-mode .product-image-container {
             <i class="fas fa-basket-shopping"></i>
             <span>فروشگاه</span>
         </div>
-        <div class="bottom-bar-item" onclick="setActive(this, 'notificationsContent')">
+        <div class="bottom-bar-item" onclick="setActive(this, 'notificationsContent'); loadNotifications();">
             <i class="fas fa-bell"></i>
             <span>اعلان‌ها</span>
         </div>
@@ -606,6 +655,60 @@ body.light-mode .product-image-container {
                 alert(`محصول "${productTitle}" به سبد خرید اضافه شد!`);
             });
         });
+
+        // تابع برای بارگذاری و نمایش اعلان‌ها
+// تابع برای بارگذاری اعلان‌ها از فایل متنی
+async function loadNotificationsFromFile() {
+    const container = document.getElementById('notificationsContainer');
+    
+    try {
+        // دریافت فایل متنی از سرور
+        const response = await fetch('Notification.txt');
+        
+        if (!response.ok) {
+            throw new Error('خطا در دریافت اعلان‌ها');
+        }
+        
+        const text = await response.text();
+        const notifications = text.split('\n').filter(line => line.trim() !== '');
+        
+        // پاک کردن محتوای قبلی
+        container.innerHTML = '';
+        
+        if (notifications.length === 0) {
+            container.innerHTML = '<p class="no-notifications">هیچ اعلان جدیدی وجود ندارد</p>';
+            return;
+        }
+        
+        // ایجاد باکس برای هر اعلان
+        notifications.forEach((notification, index) => {
+            const box = document.createElement('div');
+            box.className = 'notification-box';
+            box.innerHTML = `<p class="notification-text">${notification.trim()}</p>`;
+            
+            // افکت نمایش تدریجی
+            box.style.opacity = '0';
+            box.style.transform = 'translateX(20px)';
+            box.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1}s`;
+            
+            container.appendChild(box);
+        });
+        
+    } catch (error) {
+        console.error('Error:', error);
+        container.innerHTML = `
+            <p class="no-notifications" style="color: #ff5252;">
+                خطا در بارگذاری اعلان‌ها
+            </p>
+        `;
+    }
+}
+
+// تغییر در رویداد کلیک تب اعلان‌ها
+document.querySelector('.bottom-bar-item:nth-child(3)').addEventListener('click', function() {
+    setActive(this, 'notificationsContent');
+    loadNotificationsFromFile(); // بارگذاری اعلان‌ها از فایل
+});
     </script>
 </body>
 </html>
